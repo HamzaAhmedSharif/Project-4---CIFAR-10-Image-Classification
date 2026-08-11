@@ -1,0 +1,15 @@
+﻿__pycache__/
+*.pyc
+*.pth
+*.pt
+*.npy
+*.npz
+data/raw/
+data/processed/
+data/augmented/
+outputs/
+!outputs/dataset_summary.json
+!outputs/model_results.json
+.vscode/
+.ipynb_checkpoints/
+.DS_Store
