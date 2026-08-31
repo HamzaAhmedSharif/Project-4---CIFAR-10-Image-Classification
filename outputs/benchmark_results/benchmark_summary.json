@@ -1,0 +1,106 @@
+{
+  "project": "Project 4 - Image Classification (CIFAR-10)",
+  "part": 3,
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "benchmark_protocol": {
+    "subset_images": 2000,
+    "batch_sizes": [
+      1,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512
+    ],
+    "comparison_batch_size": 128,
+    "warmup_passes": "2 (GPU) / 1 (CPU)",
+    "timing": "best of 3 passes"
+  },
+  "results": {
+    "CNN from scratch": {
+      "parameters": 919306,
+      "batch_sweep": {
+        "1": 812.8,
+        "4": 2693.0,
+        "8": 3807.6,
+        "16": 4781.7,
+        "32": 5650.3,
+        "64": 7284.0,
+        "128": 7642.2,
+        "256": 7709.1,
+        "512": 8218.7
+      },
+      "cpu_gpu": {
+        "cpu_throughput": 2756.959,
+        "gpu_throughput": 7863.153,
+        "speedup": 2.852
+      },
+      "mixed_precision": {
+        "fp32_time_s": 0.252,
+        "fp16_time_s": 0.265,
+        "speedup": 0.954
+      },
+      "memory": {
+        "peak_memory_mb": 267.149
+      }
+    },
+    "EfficientNet-V2-S": {
+      "parameters": 20190298,
+      "batch_sweep": {
+        "1": 62.0,
+        "4": 244.2,
+        "8": 459.8,
+        "16": 803.3,
+        "32": 1393.1,
+        "64": 2082.0,
+        "128": 2017.9,
+        "256": 1917.2,
+        "512": 1707.3
+      },
+      "cpu_gpu": {
+        "cpu_throughput": 302.966,
+        "gpu_throughput": 2847.311,
+        "speedup": 9.398
+      },
+      "mixed_precision": {
+        "fp32_time_s": 0.732,
+        "fp16_time_s": 0.582,
+        "speedup": 1.257
+      },
+      "memory": {
+        "peak_memory_mb": 301.149
+      }
+    },
+    "WRN-28-10": {
+      "parameters": 36688170,
+      "batch_sweep": {
+        "1": 174.1,
+        "4": 662.0,
+        "8": 794.7,
+        "16": 858.0,
+        "32": 899.1,
+        "64": 875.5,
+        "128": 847.6,
+        "256": 841.7,
+        "512": 798.6
+      },
+      "cpu_gpu": {
+        "cpu_throughput": 41.711,
+        "gpu_throughput": 853.069,
+        "speedup": 20.452
+      },
+      "mixed_precision": {
+        "fp32_time_s": 2.352,
+        "fp16_time_s": 1.316,
+        "speedup": 1.787
+      },
+      "memory": {
+        "peak_memory_mb": 635.149
+      }
+    }
+  }
+}

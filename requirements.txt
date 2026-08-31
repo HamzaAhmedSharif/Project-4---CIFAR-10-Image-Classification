@@ -1,5 +1,11 @@
-﻿torch==2.0.0
-torchvision==0.15.0
-streamlit==1.36.0
+﻿# GPU (CUDA 11.8) build - install with:
+#   pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cu118
+# CPU-only: drop the "+cu118" suffix and install from PyPI (torch==2.7.1, torchvision==0.22.1).
+torch==2.7.1+cu118
+torchvision==0.22.1+cu118
+gradio==4.44.1
 pillow==10.0.0
-numpy==1.24.3
+numpy==2.0.0
+pandas==2.2.0
+matplotlib==3.8.0
+seaborn==0.13.0

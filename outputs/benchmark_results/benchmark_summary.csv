@@ -1,0 +1,4 @@
+Model,Parameters (M),Best Batch Size,Best Throughput (img/s),OOM Batch Sizes,GPU Throughput (img/s),Speedup vs CPU (x),FP16 Speedup (x),Peak GPU Memory (MB)
+CNN from scratch,0.92,512,8218.7,,7863.2,2.9,0.95,267.1
+EfficientNet-V2-S,20.19,64,2082.0,,2847.3,9.4,1.26,301.1
+WRN-28-10,36.69,32,899.1,,853.1,20.5,1.79,635.1

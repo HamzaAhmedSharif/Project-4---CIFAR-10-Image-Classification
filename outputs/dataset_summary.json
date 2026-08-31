@@ -1,0 +1,73 @@
+{
+  "project": "Project 4 - Image Classification (CIFAR-10)",
+  "dataset": "CIFAR-10",
+  "source": "https://www.cs.toronto.edu/~kriz/cifar.html",
+  "train_images": 50000,
+  "test_images": 10000,
+  "classes": [
+    "airplane",
+    "automobile",
+    "bird",
+    "cat",
+    "deer",
+    "dog",
+    "frog",
+    "horse",
+    "ship",
+    "truck"
+  ],
+  "image_shape": [
+    32,
+    32,
+    3
+  ],
+  "class_counts": {
+    "airplane": 5000,
+    "automobile": 5000,
+    "bird": 5000,
+    "cat": 5000,
+    "deer": 5000,
+    "dog": 5000,
+    "frog": 5000,
+    "horse": 5000,
+    "ship": 5000,
+    "truck": 5000
+  },
+  "pixel_statistics": {
+    "mean_per_channel": [
+      0.491401,
+      0.482159,
+      0.446531
+    ],
+    "std_per_channel": [
+      0.247033,
+      0.243484,
+      0.261588
+    ],
+    "global_mean": 0.473365,
+    "value_range": [
+      0.0,
+      1.0
+    ]
+  },
+  "normalization_constants": {
+    "mean": [
+      0.4914,
+      0.4822,
+      0.4465
+    ],
+    "std": [
+      0.247,
+      0.2435,
+      0.2616
+    ],
+    "note": "Verified against raw train split to <1e-4. The std values quoted by many CIFAR-10 codebases (0.2023, 0.1994, 0.2010) do not reproduce from the data."
+  },
+  "environment": {
+    "python": "3.10.20",
+    "pytorch": "2.7.1+cu118",
+    "torchvision": "0.22.1+cu118",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+  }
+}

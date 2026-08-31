@@ -1,15 +1,50 @@
-﻿__pycache__/
+﻿# Python
+__pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model checkpoints (tracked via Git LFS)
 *.pth
 *.pt
+*.onnx
+*.pb
+
+# Data
+data/raw/
 *.npy
 *.npz
-data/raw/
-data/processed/
-data/augmented/
-outputs/
+
+# Outputs (keep summary files, ignore the rest)
+outputs/*
 !outputs/dataset_summary.json
 !outputs/model_results.json
+!outputs/benchmark_results/
+!outputs/plots/
+
+# IDE/Editor
 .vscode/
-.ipynb_checkpoints/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Environment
+.env
+.venv
+venv/
+env/
+
+# Logs
+*.log
+
+# Distribution
+dist/
+build/
+*.egg-info/

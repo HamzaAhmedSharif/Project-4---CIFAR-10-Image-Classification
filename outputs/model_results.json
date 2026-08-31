@@ -1,0 +1,39 @@
+{
+  "cnn_scratch": {
+    "model": "CNN from scratch",
+    "total_parameters": 919306,
+    "best_test_accuracy": 86.8,
+    "best_epoch": 45,
+    "training_time_seconds": 1038.9
+  },
+  "efficientnet_v2_s": {
+    "model": "EfficientNet-V2-S (transfer)",
+    "total_parameters": 20190298,
+    "best_test_accuracy": 95.85,
+    "best_epoch": 28,
+    "training_time_seconds": 1955.0
+  },
+  "wrn28_10": {
+    "model": "WRN-28-10 (from scratch)",
+    "total_parameters": 36688170,
+    "best_test_accuracy": 95.54,
+    "best_epoch": 49,
+    "training_time_seconds": 12057.9
+  },
+  "best_model": {
+    "key": "efficientnet_v2_s",
+    "test_accuracy": 95.85,
+    "per_class_accuracy": {
+      "airplane": 96.4,
+      "automobile": 98.3,
+      "bird": 95.7,
+      "cat": 89.4,
+      "deer": 96.6,
+      "dog": 93.6,
+      "frog": 96.9,
+      "horse": 97.2,
+      "ship": 97.9,
+      "truck": 96.5
+    }
+  }
+}

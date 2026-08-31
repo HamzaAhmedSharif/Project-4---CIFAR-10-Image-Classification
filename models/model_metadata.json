@@ -1,7 +1,7 @@
 {
   "project": "Project 4 - Image Classification (CIFAR-10)",
   "part": 2,
-  "best_model_key": "wrn28_10",
+  "best_model_key": "efficientnet_v2_s",
   "best_model_file": "best_model.pth",
   "num_classes": 10,
   "normalization": {
@@ -20,38 +20,38 @@
     "cnn_scratch": {
       "model": "CNN from scratch",
       "total_parameters": 919306,
-      "best_test_accuracy": 86.63,
-      "best_epoch": 47,
-      "training_time_seconds": 1087.1
+      "best_test_accuracy": 86.8,
+      "best_epoch": 45,
+      "training_time_seconds": 1038.9
     },
     "efficientnet_v2_s": {
       "model": "EfficientNet-V2-S (transfer)",
       "total_parameters": 20190298,
-      "best_test_accuracy": 95.41,
-      "best_epoch": 23,
-      "training_time_seconds": 1911.0
+      "best_test_accuracy": 95.85,
+      "best_epoch": 28,
+      "training_time_seconds": 1955.0
     },
     "wrn28_10": {
       "model": "WRN-28-10 (from scratch)",
       "total_parameters": 36688170,
-      "best_test_accuracy": 95.43,
-      "best_epoch": 47,
-      "training_time_seconds": 12048.8
+      "best_test_accuracy": 95.54,
+      "best_epoch": 49,
+      "training_time_seconds": 12057.9
     },
     "best_model": {
-      "key": "wrn28_10",
-      "test_accuracy": 95.43,
+      "key": "efficientnet_v2_s",
+      "test_accuracy": 95.85,
       "per_class_accuracy": {
-        "airplane": 96.8,
+        "airplane": 96.4,
         "automobile": 98.3,
-        "bird": 93.1,
-        "cat": 87.8,
-        "deer": 97.0,
-        "dog": 92.6,
-        "frog": 97.7,
-        "horse": 96.7,
-        "ship": 97.0,
-        "truck": 97.3
+        "bird": 95.7,
+        "cat": 89.4,
+        "deer": 96.6,
+        "dog": 93.6,
+        "frog": 96.9,
+        "horse": 97.2,
+        "ship": 97.9,
+        "truck": 96.5
       }
     }
   }

@@ -11,10 +11,9 @@
 #     python app/gradio_app.py
 #     -> http://127.0.0.1:7860
 #
-# Deploy to Hugging Face Spaces:
-#     Upload this repository; Spaces reads models/best_model.pth from
-#     the repo (add the file via the web UI or Git LFS - *.pth is
-#     gitignored for GitHub). See README -> Deployment.
+# 💡 PUBLIC LINK:
+#     After running, Gradio will print a "Public URL" (e.g., https://xxxxx.gradio.live).
+#     Share this link with anyone! It stays active for 72 hours.
 # ================================================
 
 import os
@@ -60,7 +59,10 @@ else:
                "dog", "frog", "horse", "ship", "truck"]
     NORMALIZATION_MEAN = (0.4914, 0.4822, 0.4465)
     NORMALIZATION_STD = (0.2470, 0.2435, 0.2616)
-    print(f"WARNING: {CLASSES_FILE} not found - using fallback constants.")
+    print(f"WARNING: {CLASSES_FILE} not found - using fallback constants. "
+          "NOTE: these are generic textbook CIFAR-10 stats, not the constants "
+          "this project's models were actually trained with (see Part 1) - "
+          "predictions will be degraded until dataset_summary.json is restored.")
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -90,8 +92,10 @@ def _try_load(checkpoint: Path, key: str) -> torch.nn.Module:
     return model.to(DEVICE)
 
 
-def load_best_model() -> torch.nn.Module:
+def load_best_model() -> tuple:
     """Load the best checkpoint with the architecture recorded at training time.
+
+    Returns (model, best_model_key) so the app can name the winner dynamically.
 
     Priority:
       1. models/best_model.pth            (promoted winner, see Part 2)
@@ -115,7 +119,7 @@ def load_best_model() -> torch.nn.Module:
                 model = _try_load(checkpoint, key)
                 print(f"Loaded: {MODEL_NAMES[key]} (best_model.pth, "
                       f"metadata: {metadata_file.relative_to(PROJECT_ROOT)})")
-                return model
+                return model, key
             except RuntimeError as exc:
                 print(f"WARNING: architecture '{key}' from metadata failed to load "
                       f"({exc}); trying remaining architectures...")
@@ -126,7 +130,7 @@ def load_best_model() -> torch.nn.Module:
         try:
             model = _try_load(checkpoint, key)
             print(f"Loaded: {name} (best_model.pth, architecture auto-detected)")
-            return model
+            return model, key
         except RuntimeError:
             continue
 
@@ -137,7 +141,7 @@ def load_best_model() -> torch.nn.Module:
     )
 
 
-model = load_best_model()
+model, best_model_key = load_best_model()
 print(f"Device: {DEVICE}")
 print(f"Classes ({len(CLASSES)}): {', '.join(CLASSES)}")
 print(f"Mean: {NORMALIZATION_MEAN} | Std: {NORMALIZATION_STD}")
@@ -150,7 +154,7 @@ PREPROCESS = transforms.Compose([
     transforms.Resize((32, 32)),
     transforms.ToTensor(),
     transforms.Normalize(NORMALIZATION_MEAN, NORMALIZATION_STD),
-])
+)
 
 
 # -----------------------------------------------------------------------------
@@ -227,7 +231,7 @@ if RESULTS_FILE.exists():
 
 description = (
     "**Project 4: Image Classification with GPU Optimization**\n\n"
-    f"Best model: **WRN-28-10 (from scratch)** trained on CIFAR-10"
+    f"Best model: **{MODEL_NAMES[best_model_key]}** trained on CIFAR-10"
     + (f" - test accuracy **{reported_accuracy:.2f}%**" if reported_accuracy else "")
     + "\n\nUpload an image (or pick an example below). The model recognizes: "
     f"{', '.join(CLASSES)}."
@@ -249,15 +253,26 @@ demo = gr.Interface(
     cache_examples=False,
 )
 
+
 # -----------------------------------------------------------------------------
 # Launch
 # -----------------------------------------------------------------------------
-if __name__ == "__main__":
-    # share=True generates a temporary public URL; enable with: set GRADIO_SHARE=1
-    share = os.environ.get("GRADIO_SHARE", "").lower() in ("1", "true", "yes")
+def main():
+    """Entry point used both by `python app/gradio_app.py` and by the
+    `cifar10-demo` console script registered in setup.py
+    (entry_points -> app.gradio_app:main)."""
+    # Public link: Gradio creates a temporary shareable URL (valid for 72 hours).
+    # Set GRADIO_SHARE=0 to skip it (e.g. offline demoing, or when deployed on
+    # Hugging Face Spaces, which already provides its own public URL).
+    share = os.environ.get("GRADIO_SHARE", "1") == "1"
     print("Launching Gradio app...")
     print("Local URL : http://127.0.0.1:7860")
     if share:
-        print("Public URL: a shareable link will be printed below")
+        print("Public URL: a shareable link will be printed below (valid for 72 hours)")
+        print("Note      : if no public URL appears, the network blocks the tunnel - the local app still works")
     demo.launch(server_name="0.0.0.0", server_port=7860, share=share,
                 theme=gr.themes.Soft())
+
+
+if __name__ == "__main__":
+    main()
