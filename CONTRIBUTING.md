@@ -8,7 +8,6 @@ This project demonstrates:
 - End-to-end computer vision pipeline development
 - GPU-accelerated deep learning with PyTorch
 - Proper ML engineering practices (reproducibility, modular code, comprehensive evaluation)
-- Production-ready deployment with interactive demos
 
 ## 🔧 Development Setup
 
@@ -59,7 +58,6 @@ This project demonstrates:
 
 4. **Test your changes**
    - Run the notebooks to ensure they still work
-   - Test the Gradio app: `python app/gradio_app.py`
    - Verify model loading and predictions
 
 5. **Commit your changes**
@@ -91,8 +89,7 @@ This project demonstrates:
 
 - Ensure notebooks run from top to bottom without errors
 - Test with both CPU and GPU (if available)
-- Verify the Gradio app works with various image inputs
-- Check that all example images load correctly
+- Verify model loading and predictions work correctly
 
 ## 📚 Documentation
 

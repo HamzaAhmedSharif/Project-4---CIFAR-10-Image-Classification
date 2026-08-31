@@ -3,7 +3,6 @@
 # CPU-only: drop the "+cu118" suffix and install from PyPI (torch==2.7.1, torchvision==0.22.1).
 torch==2.7.1+cu118
 torchvision==0.22.1+cu118
-gradio==4.44.1
 pillow==10.0.0
 numpy==2.0.0
 pandas==2.2.0

@@ -31,7 +31,6 @@ setup(
     install_requires=[
         "torch>=2.7.1",
         "torchvision>=0.22.1",
-        "gradio>=4.44.1",
         "pillow>=10.0.0",
         "numpy>=2.0.0",
         "pandas>=2.2.0",
@@ -46,14 +45,5 @@ setup(
             "black>=23.0.0",
             "flake8>=6.0.0",
         ],
-    },
-    entry_points={
-        "console_scripts": [
-            "cifar10-demo=app.gradio_app:main",
-        ],
-    },
-    include_package_data=True,
-    package_data={
-        "app": ["examples/*.png"],
     },
 )

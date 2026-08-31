@@ -10,14 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🎉 Initial Release
 
 #### ✨ Features
-- **Complete ML Pipeline**: End-to-end implementation from EDA to deployment
+- **Complete ML Pipeline**: End-to-end implementation from EDA to benchmarking
 - **Three Model Architectures**: 
   - SimpleCNN (baseline, ~0.9M parameters)
   - EfficientNet-V2-S (transfer learning, ~20.2M parameters)
   - WRN-28-10 (from scratch, ~36.7M parameters)
 - **95.85% Test Accuracy**: Achieved with EfficientNet-V2-S on CIFAR-10
 - **GPU Optimization**: Full CUDA support with mixed-precision training
-- **Interactive Demo**: Gradio-based web interface for real-time inference
 - **Comprehensive Benchmarking**: 
   - Batch size optimization
   - CPU vs GPU comparison
@@ -47,7 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `requirements.txt` with pinned dependencies
 - `setup.py` for package installation
 - `.gitignore` for proper version control
-- Example images bundled for demo
 
 #### 📊 Results & Artifacts
 - Trained model checkpoints with metadata
@@ -60,7 +58,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Well-documented**: Extensive inline comments and docstrings
 - **Production-ready**: Error handling, fallbacks, and logging
 - **Performance-optimized**: Batch size tuning, GPU acceleration
-- **Deployment-ready**: One-command demo launch
 
 ---
 
@@ -79,6 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] Model versioning with MLflow
 - [ ] REST API for production serving
 - [ ] Mobile app demo (TFLite/ONNX)
+- [ ] Interactive Gradio/Streamlit demo for real-time inference
 
 ### Performance Improvements
 - [ ] Distributed training support (multi-GPU)

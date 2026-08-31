@@ -1,1 +1,0 @@
-# CIFAR-10 Image Classification - App Package

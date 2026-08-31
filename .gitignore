@@ -12,6 +12,7 @@ __pycache__/
 *.pt
 *.onnx
 *.pb
+!models/best_model.pth
 
 # Data
 data/raw/

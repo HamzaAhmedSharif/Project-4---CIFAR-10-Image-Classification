@@ -7,7 +7,6 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.7.1-EE4C2C.svg?style=flat&logo=pytorch)](https://pytorch.org)
 [![CUDA](https://img.shields.io/badge/CUDA-11.8-76B900.svg?style=flat&logo=nvidia)](https://developer.nvidia.com/cuda-toolkit)
-[![Gradio](https://img.shields.io/badge/Gradio-4.44.1-orange.svg)](https://gradio.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 </div>
@@ -18,7 +17,7 @@
 
 ## 📋 Overview
 
-A production-ready computer vision pipeline built on the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) using PyTorch and CUDA acceleration. This project demonstrates end-to-end ML engineering best practices through four comprehensive stages: **Exploratory Data Analysis → Model Development → GPU Benchmarking → Production Deployment**.
+A production-ready computer vision pipeline built on the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) using PyTorch and CUDA acceleration. This project demonstrates end-to-end ML engineering best practices through three comprehensive stages: **Exploratory Data Analysis → Model Development → GPU Benchmarking**.
 
 ### ✨ Key Highlights
 
@@ -26,7 +25,6 @@ A production-ready computer vision pipeline built on the [CIFAR-10 dataset](http
 - ⚡ **GPU-Optimized Training** — Full CUDA acceleration with mixed-precision support
 - 🏗️ **Production-Ready Architecture** — Modular, reusable, and well-documented codebase
 - 📊 **Comprehensive Benchmarking** — Detailed performance analysis across CPU/GPU, batch sizes, and precision modes
-- 🚀 **Interactive Demo** — Deployed Gradio app for real-time inference
 - 📝 **Reproducible Research** — Fixed seeds, documented experiments, and complete artifacts
 
 ## Project Structure
@@ -37,9 +35,6 @@ Project 4 - CIFAR-10 Image Classification/
 |   |-- 01_Data_Exploration.ipynb   # Part 1 - EDA (complete)
 |   |-- 02_Model_Building.ipynb     # Part 2 - training & comparison (complete)
 |   `-- 03_GPU_Benchmarking.ipynb   # Part 3 - GPU benchmarking (complete)
-|-- app/
-|   |-- gradio_app.py               # Part 4 - interactive demo (complete)
-|   `-- examples/                   #   one test-set image per class (committed)
 |-- src/                            # shared package: models, data loading, training loop
 |   |-- model_utils.py              #   SimpleCNN, EfficientNet-V2-S builder, WRN-28-10
 |   |-- data_loader.py              #   transforms + DataLoader construction
@@ -48,6 +43,7 @@ Project 4 - CIFAR-10 Image Classification/
 |-- outputs/                        # dataset summary, model results, benchmark results, plots
 |-- models/                         # best checkpoints + provenance metadata
 |-- requirements.txt
+|-- setup.py
 `-- README.md
 ```
 
@@ -58,7 +54,6 @@ Project 4 - CIFAR-10 Image Classification/
 | 1 | Exploratory Data Analysis | Done | `outputs/dataset_summary.json`, `outputs/plots/*.png` |
 | 2 | Model Building & Training | Done | `models/*_best.pth`, `outputs/model_results.json`, `outputs/plots/model_comparison.png`, `outputs/plots/confusion_matrix.png` |
 | 3 | GPU Benchmarking | Done | `outputs/benchmark_results/`, `outputs/plots/{batch_size_benchmark,cpu_gpu_comparison,mixed_precision_benchmark,memory_usage}.png` |
-| 4 | Deployment | Done | `app/gradio_app.py`, `app/examples/`, `notebooks/04_Deployment.ipynb` |
 
 ## Models (Part 2)
 
@@ -82,7 +77,7 @@ dropout 0.3 in every block, and cosine annealing over 50 epochs:
 | WRN-28-10 | From scratch | ~36.7M | Paper-compliant Wide ResNet (Zagoruyko & Komodakis, 2016); SGD + Nesterov, weight decay 5e-4, block dropout 0.3, cosine annealing, 50 epochs |
 
 The winner's best checkpoint is promoted to `models/best_model.pth` — the single artifact consumed
-by Parts 3 and 4 — with provenance recorded in `models/model_metadata.json`. The best model is
+by Part 3 — with provenance recorded in `models/model_metadata.json`. The best model is
 **EfficientNet-V2-S (95.85%)**, selected for its superior accuracy and faster inference speed.
 
 ## Key Design Decisions
@@ -150,39 +145,39 @@ the most from FP16; (3) all three models comfortably fit in under 1 GB of VRAM, 
 GPU-bound inference is memory bandwidth, not capacity. Full per-batch numbers:
 `outputs/benchmark_results/benchmark_summary.json`.
 
-## Deployment (Part 4)
+## Reproducing the Results
 
-An interactive Gradio demo served by `app/gradio_app.py`. The app reads `models/model_metadata.json`
-to discover **which** architecture won Part 2 (EfficientNet-V2-S, 95.85%), imports it from `src/model_utils.py` (the same code the
-notebooks use), and serves predictions from `models/best_model.pth`. One real CIFAR-10 test image per
-class is committed in `app/examples/`, so the demo works out of the box.
-
-### Run locally
+### Prerequisites
 
 ```bash
-python app/gradio_app.py
+git lfs install
+python -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cu118
 ```
 
-Open http://127.0.0.1:7860. The app prints:
+### Run the Notebooks in Order
 
+```bash
+jupyter notebook
 ```
-Local URL : http://127.0.0.1:7860
-Public URL: https://xxxxx.gradio.live   (if the share link is created)
+
+1. `notebooks/01_Data_Exploration.ipynb` → generates `outputs/dataset_summary.json` and EDA plots
+2. `notebooks/02_Model_Building.ipynb` → trains all 3 models, saves checkpoints to `models/`, produces `outputs/model_results.json`
+3. `notebooks/03_GPU_Benchmarking.ipynb` → benchmarks all trained models, saves `outputs/benchmark_results/`
+
+### Verify the Artifacts
+
+```bash
+# Check model checkpoints exist
+ls -lh models/
+
+# View results
+cat outputs/model_results.json
+cat outputs/benchmark_results/benchmark_summary.json
 ```
 
-**Sharing the demo.** By default the app requests a temporary public link through Gradio's tunnel
-(valid for 72 hours), which you can send to anyone. Two notes from practice:
-
-- The public link needs outbound internet to Gradio's tunnel servers. If your network blocks it
-  (VPNs, strict proxies, some regions), Gradio prints *"Could not create share link"* — the local
-  app still works normally.
-- Set `GRADIO_SHARE=0` to skip the public link entirely (e.g. offline demoing).
-
-For a permanent public URL, the same repo can be pushed to a hosting service such as
-[Hugging Face Spaces](https://huggingface.co/new-space) (Gradio SDK; set `app_file: app/gradio_app.py`
-in the README frontmatter) — free accounts can run CPU inference at ~50 ms/image.
-
-> The trained checkpoints (`*.pth`, ~78 MB for the winner) are tracked via Git LFS (well under GitHub's 100 MB limit). To run the demo on a fresh clone, `models/best_model.pth` is already present via LFS — the app works immediately without retraining.
+The winning checkpoint `models/best_model.pth` (EfficientNet-V2-S, 95.85%) is tracked via Git LFS and included in the repo.
 
 ## 🙏 Acknowledgments
 
