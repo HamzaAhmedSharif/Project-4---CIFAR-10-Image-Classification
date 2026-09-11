@@ -15,17 +15,17 @@
 
 # Project 4: Image Classification with GPU Optimization
 
-## 📋 Overview
+##  Overview
 
 A production-ready computer vision pipeline built on the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) using PyTorch and CUDA acceleration. This project demonstrates end-to-end ML engineering best practices through three comprehensive stages: **Exploratory Data Analysis → Model Development → GPU Benchmarking**.
 
-### ✨ Key Highlights
+###  Key Highlights
 
-- 🎯 **95.85% Test Accuracy** — SOTA performance on CIFAR-10 (EfficientNet-V2-S)
-- ⚡ **GPU-Optimized Training** — Full CUDA acceleration with mixed-precision support
-- 🏗️ **Production-Ready Architecture** — Modular, reusable, and well-documented codebase
-- 📊 **Comprehensive Benchmarking** — Detailed performance analysis across CPU/GPU, batch sizes, and precision modes
-- 📝 **Reproducible Research** — Fixed seeds, documented experiments, and complete artifacts
+-  **95.85% Test Accuracy** — SOTA performance on CIFAR-10 (EfficientNet-V2-S)
+-  **GPU-Optimized Training** — Full CUDA acceleration with mixed-precision support
+-  **Production-Ready Architecture** — Modular, reusable, and well-documented codebase
+-  **Comprehensive Benchmarking** — Detailed performance analysis across CPU/GPU, batch sizes, and precision modes
+-  **Reproducible Research** — Fixed seeds, documented experiments, and complete artifacts
 
 ## Project Structure
 
@@ -179,13 +179,13 @@ cat outputs/benchmark_results/benchmark_summary.json
 
 The winning checkpoint `models/best_model.pth` (EfficientNet-V2-S, 95.85%) is tracked via Git LFS and included in the repo.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **Dataset**: [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) by Alex Krizhevsky
 - **WRN Architecture**: [Wide Residual Networks](https://arxiv.org/abs/1605.07146) by Zagoruyko & Komodakis (2016)
 - **EfficientNet**: [EfficientNetV2](https://arxiv.org/abs/2104.00298) by Tan & Le (2021)
 
-## 📧 Contact
+##  Contact
 
 For questions or feedback, please open an issue or reach out via [hamzaahmedsharif@example.com](mailto:hamzaahmedsharif@example.com).
 
