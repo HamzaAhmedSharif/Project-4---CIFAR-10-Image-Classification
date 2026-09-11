@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-# 🖼️ Image Classification with GPU Optimization
+# Image Classification with GPU Optimization
 
 ### End-to-End Deep Learning Pipeline on CIFAR-10
 
