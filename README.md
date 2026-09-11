@@ -193,8 +193,7 @@ For questions or feedback, please open an issue or reach out via [hamzaahmedshar
 
 <div align="center">
 
-**⭐ If you find this project helpful, please consider giving it a star!**
 
-Made with ❤️ and PyTorch
+** If you find this project helpful, please consider giving it a star!**
 
 </div>
